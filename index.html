@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello, Bootstrap</title>
+    <title>To Do List</title>
     <meta name="description" content="Bootstrap Template">
 
     <!-- Styles -->
@@ -14,22 +14,38 @@
     <script src="js/vendor/bootstrap.bundle.min.js" defer></script>
     <script src="js/script.js" defer></script>
 </head>
-<body class="min-vh-100 overflow-y-scroll d-flex flex-column">
-    <header>
-        <!-- Your navigation could live here, or you can delete the header tag -->
-    </header>
+<body>
+    <section class="InputForm">
+        <h1 class="FormTitle">To Do List</h1>
+        <div class = "input-group mb-3 TaskInput">
+            <span class ="input-group-text">Task</span>
+            <input type="text" class ="form-control" id = "taskInput" placeholder="..." aria-label="Task">
+            <button class="btn btn-outline-secondary" type="button" id="addTaskButton">Submit</button>
+            <div class="line"></div>
+        </div> <br> <br> <br> <br>
+        <ul class ="list-group" id ="taskList"></ul>
+    </section>
 
-    <main class="flex-grow-1">
-        <section class="container mt-4">
-            <h1>Bootstrap Template Vanilla</h1>
-            <p>
-                This is a template to getting started building a webapp using Bootstrap.
-            </p>
-        </section>
-    </main>
+    <script>
+        document.getElementById("addTaskButton").addEventListener("click", function() {
+            const taskInput = document.getElementById("taskInput");
+            const taskList = document.getElementById("taskList");
 
-    <footer class="text-center text-muted mt-4">
-        <p>&copy; 2024 Bootstrap Template Vanilla. All rights reserved.</p>
-    </footer>
+            if (taskInput.value !== "") {
+                const taskItem = document.createElement("li");
+                taskItem.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
+                taskItem.innerHTML = `
+                    ${taskInput.value}
+                    <button class="btn btn-danger btn-sm delete-button">Delete</button>
+                `;
+                taskList.appendChild(taskItem);
+                taskInput.value = "";
+
+                taskItem.querySelector(".delete-button").addEventListener("click", function() {
+                    taskList.removeChild(taskItem);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
